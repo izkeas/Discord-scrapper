@@ -11,11 +11,13 @@ from pathlib import Path
 
 # Argparse
 parse = argparse.ArgumentParser(description="scrap discord")
-parse.add_argument('-c','--channel-id',type=int,help='gather a specified channel', action='store')
-parse.add_argument('-g','--guild-id',type=int,help='gather all guilds channel', action='store')
-parse.add_argument('-d', '--disboard', help='scrap disboard channels', action='store_true')
-parse.add_argument('-o','--output', help='output file', action='store')
-parse.add_argument('-A','--authentication', help='discord authentication')
+parse.add_argument('-c','--channel-id', type=int,   help='gather a specified channel', action='store')
+parse.add_argument('-g','--guild-id',   type=int,   help='gather all guilds channel', action='store')
+parse.add_argument('-d', '--disboard',              help='scrap disboard channels', action='store_true')
+parse.add_argument('-dt', '--disboard-tag',         help='set a disboard tag ex: games')
+parse.add_argument('-dt', '--disboard-pages',       help='set disboard max pages of guilds to be scrapped, each page have 24 guilds')
+parse.add_argument('-o','--output',                 help='output file', action='store')
+parse.add_argument('-A','--authentication',         help='discord authentication')
 
 # Set discord_unapi auth
 discord_api.setAuth('AUTHENTICATION KEY')
@@ -343,7 +345,16 @@ def main():
         scrap_guild(args.guild_id)
 
     if args.disboard:
-        Disboard_scrapper("brasil", pages=1)
+        tag   = "games"
+        pages =  1
+
+        if args.disboard_tag:
+            tag = args.disboard_tag
+        
+        if args.disboard_pages:
+            pages = int(args.disboard_pages)
+
+        Disboard_scrapper(tag, pages=pages)
     
 
 if __name__ == "__main__":
