@@ -2,7 +2,7 @@
 A discord guild, channel, disboard scrapper
 requires a account token authentication
 
-## Data_parser
+Data parser
   parse the scrapped data 
 
 ATTENTION !
